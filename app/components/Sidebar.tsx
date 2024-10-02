@@ -1,35 +1,42 @@
 import React from 'react'
-import { Home, User, LayoutDashboard, FileText, PenTool, LogOut, CheckCheck, LoaderIcon, EllipsisIcon } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Home, User, LayoutDashboard, FileText, PenTool, LogOut, CheckCheck, LoaderIcon, EllipsisIcon, Globe } from 'lucide-react'
 
-interface SidebarProps {
-  isMobileMenuOpen: boolean
-}
+export default function TopNavigation() {
+  const pathname = usePathname()
 
-export default function Sidebar({ isMobileMenuOpen }: SidebarProps) {
   const menuItems = [
-    { icon: <Home className="mr-2 h-4 w-4" />, label: 'HOME' , href:'/' },
-    { icon: <User className="mr-2 h-4 w-4" />, label: 'PROFILE', href:'/user/id/profile' },
-    { icon: <LayoutDashboard className="mr-2 h-4 w-4" />, label: 'DASHBOARD',href:'/user/id/dashboard' },
-    { icon: <FileText className="mr-2 h-4 w-4" />, label: 'YOUR REPORTS', href:'/user/id/user-report' },
-    { icon: <PenTool className="mr-2 h-4 w-4" />, label: 'REPORT ISSUE' , href:'/issue/id/createissue'},
-    { icon: <CheckCheck className="mr-2 h-4 w-4" />, label: 'COMPLETED ISSUE' , href:'/issue/id/completed'},
-    { icon: <LoaderIcon className="mr-2 h-4 w-4" />, label: 'IN PROGRESS ISSUE' , href:'/issue/id/in-progress'},
-    { icon: <EllipsisIcon className="mr-2 h-4 w-4" />, label: 'PENDING ISSUE' , href:'/issue/id/pending'},
-    { icon: <LogOut className="mr-2 h-4 w-4" />, label: 'LOGOUT' , href:'/'},
+    { icon: <Home className="h-4 w-4" />, label: 'HOME', href: '/' },
+    { icon: <PenTool className="h-4 w-4" />, label: 'REPORT ISSUE', href: '/issue/id/createissue' },
+    { icon: <Globe className="h-4 w-4" />, label: 'ISSUES', href: '/issue/id/issues' },
+    { icon: <LayoutDashboard className="h-4 w-4" />, label: 'DASHBOARD', href: '/user/id/dashboard' },
+    { icon: <FileText className="h-4 w-4" />, label: 'YOUR REPORTS', href: '/user/id/user-report' },
+    { icon: <User className="h-4 w-4" />, label: 'PROFILE', href: '/user/id/profile' },
   ]
 
   return (
-    <nav className={`w-64 bg-white shadow-lg p-4 flex flex-col justify-between ${isMobileMenuOpen ? 'block' : 'hidden'} md:block`}>
-      <ul className="space-y-2">
-        {menuItems.map((item, index) => (
-          <li key={index}>
-            <a href={item.href} className="flex items-center p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded transition duration-150 ease-in-out">
-              {item.icon}
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <nav className="bg-white shadow-md sticky top-16 z-10">
+      <div className="container mx-auto px-4">
+        <ul className="flex flex-wrap justify-between items-center -mb-px">
+          {menuItems.map((item, index) => (
+            <li key={index} className="mr-2">
+              <Link href={item.href} passHref>
+                <span
+                  className={`inline-flex items-center px-3 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out border-b-2 ${
+                    pathname === item.href
+                      ? 'border-primary text-primary'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  } focus:outline-none focus:text-gray-700 focus:border-gray-300`}
+                >
+                  {item.icon}
+                  <span className="ml-2 hidden sm:inline">{item.label}</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   )
 }
