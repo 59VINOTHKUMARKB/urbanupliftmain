@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, User, LayoutDashboard, FileText, PenTool, LogOut, CheckCheck, LoaderIcon, EllipsisIcon } from 'lucide-react'
+import { Home, User, LayoutDashboard, FileText, PenTool, LogOut, CheckCheck, LoaderIcon, EllipsisIcon, Globe } from 'lucide-react'
 
 export default function TopNavigation() {
   const pathname = usePathname()
@@ -9,12 +9,10 @@ export default function TopNavigation() {
   const menuItems = [
     { icon: <Home className="h-4 w-4" />, label: 'HOME', href: '/' },
     { icon: <PenTool className="h-4 w-4" />, label: 'REPORT ISSUE', href: '/issue/id/createissue' },
-    { icon: <CheckCheck className="h-4 w-4" />, label: 'COMPLETED ISSUE', href: '/issue/id/completed' },
-    { icon: <LoaderIcon className="h-4 w-4" />, label: 'IN PROGRESS ISSUE', href: '/issue/id/in-progress' },
-    { icon: <EllipsisIcon className="h-4 w-4" />, label: 'PENDING ISSUE', href: '/issue/id/pending' },
-    { icon: <User className="h-4 w-4" />, label: 'PROFILE', href: '/user/id/profile' },
+    { icon: <Globe className="h-4 w-4" />, label: 'ISSUES', href: '/issue/id/issues' },
     { icon: <LayoutDashboard className="h-4 w-4" />, label: 'DASHBOARD', href: '/user/id/dashboard' },
     { icon: <FileText className="h-4 w-4" />, label: 'YOUR REPORTS', href: '/user/id/user-report' },
+    { icon: <User className="h-4 w-4" />, label: 'PROFILE', href: '/user/id/profile' },
   ]
 
   return (
